@@ -22,6 +22,7 @@ export default Ember.Controller.extend({
 	}.property('photos.@each', 'searchField'),
 	actions: {
 		search: function () {
+			this.set('loading', true);
 			this.get('photos').content.clear();
 			this.store.unloadAll('photo');
 			this.send('getPhotos', this.get('tagSearchField'));
@@ -64,6 +65,7 @@ export default Ember.Controller.extend({
 			});
 		},
 		clicktag: function(tag){
+			this.set('loading', true);
 			this.set('tagSearchField', tag);
 			this.get('photos').content.clear();
 			this.store.unloadAll('photo');
