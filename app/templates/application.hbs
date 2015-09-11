@@ -1,3 +1,13 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<h2 id="title">Welcome to Ember!</h2>
 
-{{outlet}}
+<div class="container">
+	<h2 id="title">Flickr Feed:</h2>
+	<ul>
+		{{#each photo in photos}}
+			<li>
+				{{photo.title}} ({{photo.username}})<br>
+				<img class="feed-img" src={{photo.url}} />
+			</li>
+		{{/each}}
+	</ul>
+</div>
