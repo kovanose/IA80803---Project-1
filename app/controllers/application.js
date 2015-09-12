@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 	searchField: '',
 	tagSearchField: '',
 	filteredPhotosLoaded: false,
-	tagList: ['hi', 'cheese', 'nullify'],
+	tagList: [],
 	filteredPhotos: function () {
 		var filter = this.get('searchField');
 		var rx = new RegExp(filter, 'gi');
@@ -46,6 +46,20 @@ export default Ember.Controller.extend({
 						var tags = photo.tags.tag.map(function(tagitem){
 							return tagitem._content;
 						});
+						//get the number of favorites
+						var favsRequestURL = host +"?method="+"flickr.photos.getFavorites" + "&api_key="+apiKey+ "&photo_id="+photoitem.id+"&format=json&nojsoncallback=1";
+						var favs;
+						Ember.$.ajaxSetup({
+						    async: false
+						});
+						Ember.$.getJSON(favsRequestURL, function(favslist) {
+								favs = favslist.photo.total;
+							});
+						Ember.$.ajaxSetup({
+						    async: true
+						});
+						console.log(favs);
+
 						var newPhotoItem = t.store.createRecord('photo',{
 							title: photo.title._content,
 							dates: photo.dates,
@@ -59,7 +73,9 @@ export default Ember.Controller.extend({
 							farm: photo.farm,
 							secret: photo.secret,
 							server: photo.server,
+							favs: favs,
 						});
+
 						photos.pushObject(newPhotoItem);
 					});
 				});

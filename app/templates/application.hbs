@@ -1,9 +1,7 @@
-<h2 id="title">Welcome to Ember!</h2>
-
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#">My App</a>
+			<a class="navbar-brand" href="#">flickr feedr</a>
 		</div>
 		<div class="navbar-right search-field">
 			{{#bs-form formLayout="inline" action="search"}}
@@ -27,12 +25,14 @@
 				<div class="media">
 					<div class="media-left media-middle">
 						{{light-box href=photo.url data-lightbox=photo.id data-title=photo.title 						data-class="media-object feed-img"}}
-						Taken: {{photo.humanReadableDate}}<br>
-						By: <a href={{photo.ownerurl}} target="_blank">{{photo.owner.username}}</a><br>
 					</div>
 					<div class="media-body">
-						<h4 class="media-heading">{{photo.title}} ({{photo.views}} Views)</h4>
-						{{{photo.description}}}
+						<h4 class="media-heading">{{photo.title}}</h4>
+						{{{photo.description}}}<br><br>
+						{{photo.views}} Views<br>
+						{{photo.favs}} Favorites<br>
+						Taken: {{photo.humanReadableDate}}<br>
+						By: <a href={{photo.ownerurl}} target="_blank">{{photo.owner.username}}</a><br>
 					</div>
 				</div>
 				<br>
