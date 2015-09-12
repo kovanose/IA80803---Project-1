@@ -10,6 +10,7 @@ export default Ember.Controller.extend({
 	photos: PhotoCollection.create(),
 	searchField: '',
 	tagSearchField: '',
+	filteredPhotosLoaded: false,
 	tagList: ['hi', 'cheese', 'nullify'],
 	filteredPhotos: function () {
 		var filter = this.get('searchField');
@@ -65,8 +66,9 @@ export default Ember.Controller.extend({
 			});
 		},
 		clicktag: function(tag){
-			this.set('loading', true);
+			this.set('loading', false);
 			this.set('tagSearchField', tag);
+			this.set('filteredPhotosLoaded', true);
 			this.get('photos').content.clear();
 			this.store.unloadAll('photo');
 			this.send('getPhotos',tag);
