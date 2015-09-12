@@ -7,6 +7,7 @@ export default DS.Model.extend({
 	description: DS.attr('string'),
 	link: DS.attr('string'),
 	views: DS.attr('number'),
+	favs: DS.attr('number'),
 	tags: DS.attr('object'),
 	//flickr url data
 	id: '',

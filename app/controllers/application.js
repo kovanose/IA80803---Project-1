@@ -46,37 +46,26 @@ export default Ember.Controller.extend({
 						var tags = photo.tags.tag.map(function(tagitem){
 							return tagitem._content;
 						});
-						//get the number of favorites
 						var favsRequestURL = host +"?method="+"flickr.photos.getFavorites" + "&api_key="+apiKey+ "&photo_id="+photoitem.id+"&format=json&nojsoncallback=1";
-						var favs;
-						Ember.$.ajaxSetup({
-						    async: false
-						});
 						Ember.$.getJSON(favsRequestURL, function(favslist) {
-								favs = favslist.photo.total;
+							var newPhotoItem = t.store.createRecord('photo',{
+								title: photo.title._content,
+								dates: photo.dates,
+								owner: photo.owner,
+								description: photo.description._content,
+								link: photo.urls.url[0]._content,
+								views: photo.views,
+								tags: tags,
+								favs: favslist.photo.total,
+								//flickr url data
+								id: photo.id,
+								farm: photo.farm,
+								secret: photo.secret,
+								server: photo.server,
 							});
-						Ember.$.ajaxSetup({
-						    async: true
-						});
-						console.log(favs);
 
-						var newPhotoItem = t.store.createRecord('photo',{
-							title: photo.title._content,
-							dates: photo.dates,
-							owner: photo.owner,
-							description: photo.description._content,
-							link: photo.urls.url[0]._content,
-							views: photo.views,
-							tags: tags,
-							//flickr url data
-							id: photo.id,
-							farm: photo.farm,
-							secret: photo.secret,
-							server: photo.server,
-							favs: favs,
+							photos.pushObject(newPhotoItem);
 						});
-
-						photos.pushObject(newPhotoItem);
 					});
 				});
 			});
